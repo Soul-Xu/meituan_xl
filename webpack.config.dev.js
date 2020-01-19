@@ -49,7 +49,13 @@ const htmlArray = getHtmlArray(entryMap);
 
 module.exports = {
   mode: 'development',
+  devServer: {
+    contentBase: devPath
+  },
   entry: entryMap,
+  resolve: {
+    extensions: ['.js', '.jsx']
+  },
   output: {
     path: devPath,
     filename: '[name].min.js'
@@ -58,7 +64,12 @@ module.exports = {
     rules: [
       {test: /\.(js|jsx)$/, use: [{loader: 'babel-loader'}], include: srcRoot},
       {test: /\.css$/, use: ['style-loader', 'css-loader'], include: srcRoot},
-      {test: /\.scss$/, use: ['style-loader', 'css-loader', 'scss-loader'], include: srcRoot},
+      {test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader', {
+        loader: 'sass-resources-loader',
+        options: {
+          resources: srcRoot + '/component/common.scss'
+        }
+      }], include: srcRoot},
       {test: /\.(png|jpg|jpeg)$/, use: 'url-loader?limit=8194', include: srcRoot}
     ]
   },

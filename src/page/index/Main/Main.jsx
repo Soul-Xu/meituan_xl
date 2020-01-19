@@ -2,23 +2,18 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import { addTodo } from '../actions/tabAction.js'
+import BottomBar from '../BottomBar/BottomBar.jsx'
 
 class Main extends React.Component {
   constructor(props) {
     super(props)
   }
 
-  click() {
-    this.props.dispatch(addTodo({
-      num: 10
-    }))
-  }
-
   render() {
-    let num =  this.props.num
     return (
-    <div onClick={() => this.click()}>{num}</div>
+      <div>
+        <BottomBar />
+      </div>
     )
   }
 }
