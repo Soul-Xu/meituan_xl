@@ -12,6 +12,7 @@ import { changeTab } from '../actions/tabAction.js'
  */ 
 
  class BottomBar extends React.Component {
+   
    constructor(props) {
      super(props)
    }

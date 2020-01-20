@@ -1,3 +1,4 @@
+const webpack = require('webpack')
 const path = require('path')
 const fs = require('fs')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
@@ -50,7 +51,8 @@ const htmlArray = getHtmlArray(entryMap);
 module.exports = {
   mode: 'development',
   devServer: {
-    contentBase: devPath
+    contentBase: devPath,
+    hot: true
   },
   entry: entryMap,
   resolve: {
@@ -62,7 +64,7 @@ module.exports = {
   },
   module: {
     rules: [
-      {test: /\.(js|jsx)$/, use: [{loader: 'babel-loader'}], include: srcRoot},
+      {test: /\.(js|jsx)$/, use: [{loader: 'babel-loader'}, {loader: 'eslint-loader'}], include: srcRoot},
       {test: /\.css$/, use: ['style-loader', 'css-loader'], include: srcRoot},
       {test: /\.scss$/, use: ['style-loader', 'css-loader', 'sass-loader', {
         loader: 'sass-resources-loader',
@@ -74,5 +76,7 @@ module.exports = {
     ]
   },
   plugins: [
+    new webpack.NamedModulesPlugin(),
+    new webpack.HotModuleReplacementPlugin()
   ].concat(htmlArray)
 }
