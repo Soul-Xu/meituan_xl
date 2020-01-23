@@ -1,7 +1,10 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 
-import mainReducer from './reducers/main.js'
-const store = createStore(mainReducer)
+import mainReducer from './reducers/main.js';
+
+import thunk from 'redux-thunk';
+
+const store = createStore(mainReducer, applyMiddleware(thunk));
 
 if (module.hot) {
   module.hot.accept('./reducers/main', () => {

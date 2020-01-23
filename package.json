@@ -24,6 +24,7 @@
   },
   "homepage": "https://github.com/Soul-Xu/meituan_xl#readme",
   "dependencies": {
+    "axios": "^0.19.1",
     "babel-core": "^6.26.0",
     "babel-eslint": "^8.2.3",
     "babel-loader": "^7.1.4",
@@ -46,7 +47,7 @@
     "react-hot-loader": "^4.12.18",
     "react-redux": "^5.0.7",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0",
+    "redux-thunk": "^2.3.0",
     "sass-loader": "^6.0.7",
     "sass-resources-loader": "^1.3.5",
     "style-loader": "^0.20.3",

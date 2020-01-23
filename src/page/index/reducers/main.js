@@ -1,9 +1,12 @@
 import tabReducer from './tabReducer.js';
-
+import categoryReducer from './categoryReducer.js'
+import contentListReducer from './contentListReducer.js' 
 import { combineReducers } from 'redux';
 
 const reducers = combineReducers({
-  tabReducer
+  tabReducer,
+  categoryReducer,
+  contentListReducer
 });
 
-export default reducers
+export default reducers 
