@@ -27,3 +27,10 @@
   -webkit-transform-origin: 0,0;
   transform-origin: 0,0;
 }
+
+// 省略号样式
+.one-line {
+  overflow: hidden;
+  text-overflow: ellipsis; // ...的方式
+  white-space: nowrap; // 强制不换行
+}
