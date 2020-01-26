@@ -15,13 +15,13 @@ class ListItem extends React.Component {
    * 渲染每个菜品总计
    * @param {*} data
    */
-  renderTotalPrice(item, data) {
+  renderTotalPrice(item, index, data) {
     return (
-      <div className="product-item">
+      <div key={index} className="product-item">
         <span>...</span>
         <div className="p-total-count">
-          共计{data.product_count}个菜，实付
-          <span className="total-price">¥{data.total}</span>
+            共计{data.product_count}个菜，实付
+            <span className="total-price">¥{data.total}</span>
         </div>
       </div>
     )
@@ -35,15 +35,16 @@ class ListItem extends React.Component {
   renderProduct(data) {
     let list = data.product_list
     // push一个用来计算总计的type:more
-    list.push({type: 'more'})
-    return list.map((item, index) => {
+    let _list = JSON.parse(JSON.stringify(list));
+    _list.push({type: 'more'})
+    return _list.map((item, index) => {
       if (item.type === 'more') {
-        return this.renderTotalPrice(item, data)
+        return this.renderTotalPrice(item, index, data)
       }
       return (
-      <div key={index} className="product-item">{item.product_name}
-        <div className="p-count">x{item.product_count}</div>
-      </div>
+        <div key={index} className="product-item">{item.product_name}
+          <div className="p-count">x{item.product_count}</div>
+        </div>
       )
     })
   }

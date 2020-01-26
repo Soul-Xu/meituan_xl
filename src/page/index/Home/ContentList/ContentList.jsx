@@ -2,7 +2,7 @@ import './ContentList.scss';
 import React from 'react';
 import { connect } from 'react-redux';
 import ListItem from './ListItem/ListItem.jsx'
-import Loading from 'component/Loading/Loading.jsx'
+import ScrollView from 'component/ScrollView/ScrollView.jsx'
 import { getListData } from '../../actions/contentListAction'
 
 /**
@@ -26,41 +26,15 @@ class ContentList extends React.Component {
   }
 
   onLoadPage() {
-    let clientHeight = document.documentElement.clientHeight
-    let scrollHeight = document.body.scrollHeight
-    let scrollTop = document.documentElement.scrollTop
-  
-    // 定义阈值
-    let proLoadDis = 30;
-
-    // 视窗底部距离可视区域还有30px的时候，就进行触发
-
-    if (scrollTop + clientHeight >= (scrollHeight - proLoadDis)) {
-      // 此时页面已经滚动到了底部
-      this.page++
-      // 最多滚动3页，即3次 
-      // 滚动超过3页，让它停止滚动
-      if (this.page > 3) {
-        this.setState({
-          isend: true
-        })
-      } else {
-        this.fetchData(this.page)
-      }
+    this.page++
+    // 最多滚动3页3次
+    if (this.page > 3) {
+      this.setState({
+        isend: true
+      })
+    } else {
+      this.fetchData(this.page)
     }
-  }
-
-  // componentWillMount会报错
-  // 可以使用UNSAFE_componentWillMount()代替
-  // 也可以尝试使用getDeriveStateFromProps
-
-  UNSAFE_componentWillMount() {
-    console.log('UNSAFE_componentWillMount')
-    window.addEventListener('scroll', this.onLoadPage.bind(this))
-  }
-
-  componentWillUnmount() {
-    window.removeEventListener('scroll', this.onLoadPage.bind(this))
   }
 
   fetchData(page) {
@@ -82,8 +56,9 @@ class ContentList extends React.Component {
           <span>附近商家</span>
           <span className="title-line"></span>
         </h4>
-        {this.renderItems()}
-        <Loading isend={this.state.isend} />
+        <ScrollView loadCallback={this.onLoadPage.bind(this)} isend={this.state.isend}>
+          {this.renderItems()}
+        </ScrollView>
       </div>
     )
   }

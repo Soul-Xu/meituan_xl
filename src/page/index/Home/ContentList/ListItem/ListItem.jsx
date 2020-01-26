@@ -103,7 +103,7 @@ class ListItem extends React.Component {
       return (
         <div key={index} className="other-info">
           <img src={item.icon_url} className="other-tag" />
-      <div className="other-content">{item.info}</div>
+          <div className="other-content">{item.info}</div>
         </div>
       )
     })
