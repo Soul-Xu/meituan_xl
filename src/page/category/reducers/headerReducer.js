@@ -1,8 +1,7 @@
-import { CHANGE_TAB } from '../actions/actionTyps'
+import { CHANGE_TAB, GET_FILTER_DATA, CHANGE_FILTER } from '../actions/actionTypes'
 import { TABKEY } from '../config.js'
-let tabs = {
 
-}
+let tabs = {}
 tabs[TABKEY.cate] = {
   key: TABKEY.cate,
   text: '全部分类',
@@ -20,16 +19,37 @@ tabs[TABKEY.filter] = {
 }
 const initState = {
   tabs: tabs,
-  activeKey: TABKEY.cate
+  activeKey: TABKEY.cate,
+  filterData: {},
+  closePanel: true
 }
 
 const changeTab = (state, action) => {
-  return {...state, activeKey: action.obj.activeKey}
+  return {...state, activeKey: action.obj.activeKey, closePanel: action.obj.closePanel}
+}
+
+const getFilterData = (state, action) => {
+  return {...state, filterData: action.obj.data}
+}
+
+// 深拷贝原始值
+// JSON.parse(JSON.stringify())只适用于对象是纯键值对的形式
+// 如果对象内包含function 则需要写深拷贝函数
+const changeFilter = (state, action) => {
+  let _tabs = JSON.parse(JSON.stringify(state.tabs));
+  _tabs[action.obj.key] = {
+      key: action.obj.key,
+      text: action.obj.item.name,
+      obj: action.obj.item
+  };
+  return {...state, tabs: _tabs};
 }
 
 const headerReducer = (state = initState, action) => {
   switch(action.type) {
     case CHANGE_TAB: return changeTab(state, action)
+    case GET_FILTER_DATA: return getFilterData(state, action)
+    case CHANGE_FILTER: return changeFilter(state, action)
     default: return state;
   }
 }

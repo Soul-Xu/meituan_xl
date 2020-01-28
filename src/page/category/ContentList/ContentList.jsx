@@ -3,7 +3,7 @@ import React from 'react';
 import { connect } from 'react-redux';
 import ListItem from 'component/ListItem/ListItem.jsx'
 import ScrollView from 'component/ScrollView/ScrollView.jsx'
-import { getListData } from '../../actions/contentListAction'
+import { getListData } from '../actions/contentListAction'
 
 /**
  * @constructor <ContentList />
@@ -13,32 +13,21 @@ import { getListData } from '../../actions/contentListAction'
 class ContentList extends React.Component {
   constructor(props) {
     super(props)
-    // 记录当前页码
-    this.page = 0;
 
     // 请求第一页数据
-    this.fetchData(this.page);
+    this.fetchData();
     
-    // 标识页面是否可以滚动
-    this.state = {
-      isend: false
-    };
   }
 
   onLoadPage() {
-    this.page++
     // 最多滚动3页3次
-    if (this.page > 3) {
-      this.setState({
-        isend: true
-      })
-    } else {
-      this.fetchData(this.page)
+    if (this.props.page <= 3) {
+      this.fetchData()
     }
   }
 
-  fetchData(page) {
-    this.props.dispatch(getListData(page))
+  fetchData() {
+    this.props.dispatch(getListData({}))
   }
 
   renderItems() {
@@ -51,12 +40,7 @@ class ContentList extends React.Component {
   render() {
     return (
       <div className="list-content">
-        <h4 className="list-title">
-          <span className="title-line"></span>
-          <span>附近商家</span>
-          <span className="title-line"></span>
-        </h4>
-        <ScrollView loadCallback={this.onLoadPage.bind(this)} isend={this.state.isend}>
+        <ScrollView loadCallback={this.onLoadPage.bind(this)} isend={this.props.isend}>
           {this.renderItems()}
         </ScrollView>
       </div>
@@ -66,6 +50,8 @@ class ContentList extends React.Component {
 
 export default connect(
   state => ({
-    list: state.contentListReducer.list
+    list: state.contentListReducer.list,
+    page: state.contentListReducer.page,
+    isend: state.contentListReducer.isend
   })
 )(ContentList);

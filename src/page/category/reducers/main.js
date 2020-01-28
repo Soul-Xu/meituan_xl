@@ -4,9 +4,11 @@
 // import orderReducer from './orderReducer.js'
 import { combineReducers } from 'redux';
 import headerReducer from './headerReducer.js'
+import contentListReducer from './contentListReducer.js'
 
 const reducers = combineReducers({
-  headerReducer
+  headerReducer,
+  contentListReducer
 });
 
 export default reducers 
