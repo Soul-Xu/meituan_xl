@@ -34,3 +34,11 @@
   text-overflow: ellipsis; // ...的方式
   white-space: nowrap; // 强制不换行
 }
+
+.two-line {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  -webkit-box-orient: vertical;
+}

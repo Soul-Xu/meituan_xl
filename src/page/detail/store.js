@@ -1,6 +1,38 @@
-import { createStore } from 'redux';
+import { createStore, applyMiddleware } from 'redux';
 
-import mainReducer from './reducers/main.js'
-const store = createStore(mainReducer)
+import mainReducer from './reducers/main.js';
 
-export default store
+import thunk from 'redux-thunk';
+
+// history和react-router结合使用
+import { routerMiddleware } from 'react-router-redux'
+
+// // history存储的就是页面push进去的路由
+// import createHistory from 'history/createHashHistory'
+
+// // 创建基于hash的history
+// const history = createHistory()
+
+const createHistory = require("history").createHashHistory
+
+const history = createHistory()
+
+// 创建初始化tab
+history.replace('menu');
+
+// 创建history的middleware
+const historyMiddl = routerMiddleware(history)
+
+const store = createStore(mainReducer, window._REDUX_DEVTOOLS_EXTENSION__ && window._REDUX_DEVTOOLS_EXTENSION__(), applyMiddleware(thunk, historyMiddl));
+
+if (module.hot) {
+  module.hot.accept('./reducers/main', () => {
+    const nextRootReducer = require('./reducers/main.js').default;
+    store.replaceReducer(nextRootReducer)
+  });
+}
+
+module.exports = {
+  store,
+  history
+}

@@ -69,7 +69,7 @@ class Main extends React.Component {
             {this.renderStar()}
           </div>
           <div className="comment">
-            <textarea ref="commentInput" onChange={(e) => this.onInput(e.target.value)} maxLength="140" placeholder="亲，菜品的口味如何，商家的服务是否周到？" className="comment-input"></textarea>
+            <textarea refs="commentInput" onChange={(e) => this.onInput(e.target.value)} maxLength="140" placeholder="亲，菜品的口味如何，商家的服务是否周到？" className="comment-input"></textarea>
             <span className="count">{this.state.count}</span>
           </div>
           <p className="one-line product-name">xxxxxxxxx</p>
