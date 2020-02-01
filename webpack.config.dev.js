@@ -69,8 +69,8 @@ module.exports = {
   module: {
     rules: [
       {test: /\.(js|jsx)$/, use: [{loader: 'babel-loader'}, {loader: 'eslint-loader'}], include: srcRoot},
-      {test: /\.css$/, use: [MiniCssExtractPlugin.loader, 'css-loader'], include: srcRoot},
-      {test: /\.scss$/, use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader', {
+      {test: /\.css$/, use: ['css-loader'], include: srcRoot},
+      {test: /\.scss$/, use: ['css-loader', 'sass-loader', {
         loader: 'sass-resources-loader',
         options: {
           resources: srcRoot + '/component/common.scss'

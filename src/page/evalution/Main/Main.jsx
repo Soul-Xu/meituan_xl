@@ -1,3 +1,4 @@
+import 'component/common.scss'
 import './Main.scss'
 import React from 'react';
 

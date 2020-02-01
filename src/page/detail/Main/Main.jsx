@@ -1,4 +1,6 @@
+import 'component/common.scss'
 import './Main.scss'
+
 import React from 'react';
 
 import { connect } from 'react-redux';
@@ -36,9 +38,10 @@ class Main extends React.Component {
   }
 
   render() {
+    let poiName = this.props.poiInfo.poi_info ? this.props.poiInfo.poi_info.name : '';
     return (
       <div className="detail">
-          <NavHeader title="详情" />
+          <NavHeader title={poiName} />
           <div className="tab-bar">
             {this.renderTabs()}
           </div>

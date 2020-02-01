@@ -10,7 +10,8 @@ import {
 const initState = {
   listData: {},
   currentLeftIndex: 0,
-  showChooseContent: false
+  showChooseContent: false,
+  poiInfo: {}
 }
 
 const itemClick = (state, action) => {
@@ -21,7 +22,7 @@ const getListData = (state, action) => {
   if (Object.keys(state.listData).length > 0) {
     return {...state}
   }
-  return {...state, listData: action.obj.data}
+  return {...state, poiInfo: action.obj.data, listData: action.obj.data}
 }
 
 const addSelectItem = (state, action) => {

@@ -2,6 +2,7 @@ import tabReducer from './tabReducer.js';
 import categoryReducer from './categoryReducer.js'
 import contentListReducer from './contentListReducer.js' 
 import orderReducer from './orderReducer.js'
+import scrollViewReducer from 'component/ScrollView/scrollViewReducer'
 import { combineReducers } from 'redux';
 import { routerReducer } from 'react-router-redux'
 // ConnectedRouter是将provider和router进行
@@ -12,6 +13,7 @@ const reducers = combineReducers({
   categoryReducer,
   contentListReducer,
   orderReducer,
+  scrollViewReducer,
   router: routerReducer
 });
 

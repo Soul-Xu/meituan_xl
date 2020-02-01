@@ -1,6 +1,7 @@
 import './Scrollview.scss'
 import React from 'react'
 import Loading from '../Loading/Loading'
+import { connect } from 'react-redux';
 
 /**
  * <ScrollView />
@@ -8,6 +9,10 @@ import Loading from '../Loading/Loading'
  */
 
 class ScrollView extends React.Component {
+  constructor(props) {
+    super(props);
+    this._onLoadPage =  this.onLoadPage.bind(this)
+  }
   onLoadPage() {
     let clientHeight = document.documentElement.clientHeight
     let scrollHeight = document.body.scrollHeight
@@ -20,6 +25,10 @@ class ScrollView extends React.Component {
 
     if (scrollTop + clientHeight >= (scrollHeight - proLoadDis)) {
       if (!this.props.isend) {
+        // 在触发第二次请求前去判断第一次请求是否结束
+        if (!this.props.readyToLoad) {
+           return;
+        }
         this.props.loadCallback && this.props.loadCallback()
       }
     }
@@ -31,11 +40,11 @@ class ScrollView extends React.Component {
 
   UNSAFE_componentWillMount() {
     console.log('UNSAFE_componentWillMount')
-    window.addEventListener('scroll', this.onLoadPage.bind(this))
+    window.addEventListener('scroll', this._onLoadPage)
   }
 
   componentWillUnmount() {
-    window.removeEventListener('scroll', this.onLoadPage.bind(this))
+    window.removeEventListener('scroll', this._onLoadPage)
   }
 
   render() {
@@ -49,4 +58,8 @@ class ScrollView extends React.Component {
 
 }
 
-export default ScrollView
+export default connect(
+  state => ({
+    readyToLoad: state.scrollViewReducer.readyToLoad
+  })
+)(ScrollView);

@@ -1,7 +1,3 @@
-@function px2rem($px) {
-  $rem: 37.5px;
-  @return ($px / $rem) + rem;
-}
 
 .clearfix:after {
   content: '';
@@ -41,4 +37,8 @@
   overflow: hidden;
   text-overflow: ellipsis;
   -webkit-box-orient: vertical;
+}
+
+* {
+  -webkit-tap-highlight-color: transparent;
 }
